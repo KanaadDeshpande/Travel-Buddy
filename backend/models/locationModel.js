@@ -43,7 +43,7 @@ const locationSchema = mongoose.Schema(
     },
     location: {
       type: { type: String, default: 'Point' },
-      coordinates: [],
+      coordinates: [Number, Number],
     },
     weather: {
       note: {
@@ -74,6 +74,7 @@ locationSchema.plugin(mongoose_fuzzy_searching, {
     },
   ],
 });
+mongoose.where('loc').near({ center: [10, 10] });
 
 const Location = mongoose.model('Location', locationSchema);
 

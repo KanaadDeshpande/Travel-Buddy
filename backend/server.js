@@ -14,6 +14,11 @@ import { graphqlHTTP } from 'express-graphql';
 import graphqlSchema from './graphql/schemas/index.js';
 import graphqlResolvers from './graphql/resolvers/index.js';
 
+import authRoutes from './routes/auth-routes';  //
+import profileRoutes from './routes/profile-routes';  //
+import passportSetup from './config/passport-setup';  //
+import keys from './config/keys'; //
+
 dotenv.config();
 
 await connectDB();
@@ -67,6 +72,21 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use(notFound);
 app.use(errorHandler);
+
+// Google Authentication Start
+
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [keys.session.cookieKey]
+}))
+
+//Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+app.use('/auth', authRoutes);
+app.use('/profile', profileRoutes);
+
+// Google Authentication end
 
 const PORT = process.env.PORT || 5000;
 
