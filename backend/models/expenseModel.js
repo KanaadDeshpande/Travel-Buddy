@@ -14,7 +14,7 @@ const expenseSchema = new mongoose.Schema({
         required: true
     }
 }, {
-    timestamps: true,
+    stimestamps: true,
 })
 
 module.exports = mongoose.model('Expense', expenseSchema)
