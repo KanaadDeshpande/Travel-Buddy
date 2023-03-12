@@ -1,4 +1,4 @@
-# LOC3.0_Catch-22
+# Travel Buddy
 ## To run
 
 ### Env Variables
